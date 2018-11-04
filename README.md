@@ -9,6 +9,10 @@ Logs are written inside the container, in /var/log/dovecot/dovecot.log, and on s
 `docker logs -f dovecot-honey-alpine`  
 `CTRL c` to stop seeing logs.  
 
+If you want to map logs outside the container you can add:  
+`-v /folder/path/on-host/logs/:/var/log/dovecot/`  
+Where "/folder/path/on-host/logs/" is a folder inside your host. You have to create the host folder manually.  
+
 You can run it on a compose file like this:  
 
 ```
