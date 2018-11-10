@@ -20,7 +20,7 @@ version: '3'
 
 services:  
   dovecot:  
-    image: neomediatech/dovecot-honey-alpine-neo:latest  
+    image: neomediatech/dovecot-honey-alpine:latest  
     hostname: dovecot-honey  
     ports:  
       - '110:110'  
