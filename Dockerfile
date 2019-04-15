@@ -3,7 +3,7 @@ FROM alpine
 LABEL maintainer="docker-dario@neomediatech.it"
 
 RUN apk update; apk upgrade ; apk add --no-cache tzdata; cp /usr/share/zoneinfo/Europe/Rome /etc/localtime
-RUN apk add --no-cache tini dovecot bash && \
+RUN apk add --no-cache tini dovecot dovecot-pop3d bash && \
     rm -rf /usr/local/share/doc /usr/local/share/man && \
     rm -rf /etc/dovecot/* && \
     mkdir -p /var/log/dovecot /var/lib/dovecot && \ 
