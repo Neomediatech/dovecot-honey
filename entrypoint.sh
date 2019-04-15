@@ -10,7 +10,7 @@ if [ ! -f $LOGFILE ]; then
   touch $LOGFILE
 fi
 chmod 777 /var/log/dovecot /tmp/dovecot
-chmod 666 /var/log/dovecot/dovecot.log
+chmod 666 $LOGFILE
 
-exec tail -f /data/logs/dovecot.log &
+exec tail -f $LOGFILE &
 exec "$@"
