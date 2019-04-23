@@ -1,16 +1,16 @@
-FROM alpine
+FROM alpine:3.9
 
 LABEL maintainer="docker-dario@neomediatech.it"
 
-RUN apk update; apk upgrade ; apk add --no-cache tzdata; cp /usr/share/zoneinfo/Europe/Rome /etc/localtime
-RUN apk add --no-cache tini dovecot dovecot-pop3d bash && \
+RUN apk update && apk upgrade && apk add --no-cache tzdata && cp /usr/share/zoneinfo/Europe/Rome /etc/localtime && \
+    apk add --no-cache tini dovecot dovecot-pop3d bash && \
     rm -rf /usr/local/share/doc /usr/local/share/man && \
     rm -rf /etc/dovecot/* && \
     mkdir -p /var/log/dovecot /var/lib/dovecot && \ 
     chmod 777 /var/log/dovecot
 COPY dovecot.conf users dovecot-ssl.cnf /etc/dovecot/
-RUN openssl req -new -x509 -nodes -days 3650 -config /etc/dovecot/dovecot-ssl.cnf -out /etc/dovecot/server.pem -keyout /etc/dovecot/server.key ; \
-    chmod 0600 /etc/dovecot/server.key ; openssl dhparam -dsaparam -out /etc/dovecot/dh.pem 2048
+RUN openssl req -new -x509 -nodes -days 3650 -config /etc/dovecot/dovecot-ssl.cnf -out /etc/dovecot/server.pem -keyout /etc/dovecot/server.key && \
+    chmod 0600 /etc/dovecot/server.key && openssl dhparam -dsaparam -out /etc/dovecot/dh.pem 2048
 
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
