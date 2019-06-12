@@ -2,7 +2,7 @@ FROM alpine:3.9
 
 ENV VERSION=2.3.6-r0
 ENV BUILD_DATE=2019-05-09
-ENV DEBIAN_FRONTEND=noninteractive
+
 ENV TZ=Europe/Rome
 
 LABEL maintainer="docker-dario@neomediatech.it" \ 
@@ -12,9 +12,7 @@ LABEL maintainer="docker-dario@neomediatech.it" \
       org.label-schema.vcs-url=https://github.com/Neomediatech/dovecot-honey-docker-alpine \
       org.label-schema.maintainer=Neomediatech
 
-LABEL maintainer="docker-dario@neomediatech.it"
-
-RUN apk update && apk upgrade && apk add --no-cache tzdata && cp /usr/share/zoneinfo/Europe/Rome /etc/localtime && \
+RUN apk update && apk upgrade && apk add --no-cache tzdata && cp /usr/share/zoneinfo/$TZ /etc/localtime && \
     apk add --no-cache tini dovecot dovecot-pop3d bash && \
     rm -rf /usr/local/share/doc /usr/local/share/man && \
     rm -rf /etc/dovecot/* && \
