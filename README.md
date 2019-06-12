@@ -1,3 +1,8 @@
+[![](https://images.microbadger.com/badges/version/neomediatech/dovecot-honey-alpine.svg)](https://microbadger.com/images/neomediatech/dovecot-honey-alpine "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/neomediatech/dovecot-honey-alpine.svg)](https://microbadger.com/images/neomediatech/dovecot-honey-alpine)
+![](https://img.shields.io/github/last-commit/Neomediatech/dovecot-honey-docker-alpine.svg?style=plastic)
+![](https://img.shields.io/github/repo-size/Neomediatech/dovecot-honey-docker-alpine.svg?style=plastic)
+
 # dovecot-honey-alpine
 Dockerized version of Dovecot as honeypot service, based on Alpine Linux
 
