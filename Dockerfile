@@ -1,12 +1,13 @@
-FROM alpine:3.9
+FROM alpine:3.10
 
-ENV VERSION=2.3.6-r0
-ENV BUILD_DATE=2019-05-09
+ENV DOVECOT_VERSION=2.3.7.2-r0
+ENV BUILD_DATE=2019-08-29
+ENV ALPINE_VERSION=3.10
 
 ENV TZ=Europe/Rome
 
 LABEL maintainer="docker-dario@neomediatech.it" \ 
-      org.label-schema.version=$VERSION \
+      org.label-schema.version=$DOVECOT_VERSION \
       org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-type=Git \
       org.label-schema.vcs-url=https://github.com/Neomediatech/dovecot-honey-docker-alpine \
