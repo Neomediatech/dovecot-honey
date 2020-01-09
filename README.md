@@ -1,17 +1,16 @@
-[![](https://images.microbadger.com/badges/version/neomediatech/dovecot-honey-alpine.svg)](https://microbadger.com/images/neomediatech/dovecot-honey-alpine "Get your own version badge on microbadger.com")
-[![](https://images.microbadger.com/badges/image/neomediatech/dovecot-honey-alpine.svg)](https://microbadger.com/images/neomediatech/dovecot-honey-alpine)
-![](https://img.shields.io/github/last-commit/Neomediatech/dovecot-honey-docker-alpine.svg?style=plastic)
-![](https://img.shields.io/github/repo-size/Neomediatech/dovecot-honey-docker-alpine.svg?style=plastic)
+[![](https://images.microbadger.com/badges/version/neomediatech/dovecot-honey.svg)](https://microbadger.com/images/neomediatech/dovecot-honey)
+[![](https://images.microbadger.com/badges/image/neomediatech/dovecot-honey.svg)](https://microbadger.com/images/neomediatech/dovecot-honey)
+![](https://img.shields.io/github/last-commit/Neomediatech/dovecot-honey.svg?style=plastic)
+![](https://img.shields.io/github/repo-size/Neomediatech/dovecot-honey.svg?style=plastic)
 
-# dovecot-honey-alpine
-Dockerized version of Dovecot as honeypot service, based on Alpine Linux
+Dockerized version of Dovecot as honeypot service, based on Ubuntu
 
 ## Usage
 You can run this container with this command:  
-`docker run -d --name dovecot-honey-alpine -p 110:110 -p 143:143 -p 993:993 -p 995:995 neomediatech/dovecot-honey-alpine`  
+`docker run -d --name dovecot-honey -p 110:110 -p 143:143 -p 993:993 -p 995:995 neomediatech/dovecot-honey`  
 
 Logs are written inside the container, in /var/log/dovecot/dovecot.log, and on stdout. You can see realtime logs running this command:  
-`docker logs -f dovecot-honey-alpine`  
+`docker logs -f dovecot-honey`  
 `CTRL c` to stop seeing logs.  
 
 If you want to map logs outside the container you can add:  
@@ -25,7 +24,7 @@ version: '3'
 
 services:  
   dovecot:  
-    image: neomediatech/dovecot-honey-alpine:latest  
+    image: neomediatech/dovecot-honey:latest  
     hostname: dovecot-honey  
     ports:  
       - '110:110'  
