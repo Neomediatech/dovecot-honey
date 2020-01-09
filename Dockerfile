@@ -1,34 +1,38 @@
-FROM alpine:3.10
+FROM neomediatech/ubuntu-base:latest
 
-ENV DOVECOT_VERSION=2.3.7.2-r0
-ENV BUILD_DATE=2019-08-29
-ENV ALPINE_VERSION=3.10
+ENV VERSION=2.3.9.2-1+ubuntu18.04 \
+    SERVICE=dovecot-honey 
 
-ENV TZ=Europe/Rome
-
-LABEL maintainer="docker-dario@neomediatech.it" \ 
-      org.label-schema.version=$DOVECOT_VERSION \
-      org.label-schema.build-date=$BUILD_DATE \
+LABEL maintainer="docker-dario@neomediatech.it" \
+      org.label-schema.version=$VERSION \
       org.label-schema.vcs-type=Git \
-      org.label-schema.vcs-url=https://github.com/Neomediatech/dovecot-honey-docker-alpine \
+      org.label-schema.vcs-url=https://github.com/Neomediatech/$SERVICE \
       org.label-schema.maintainer=Neomediatech
 
-RUN apk update && apk upgrade && apk add --no-cache tzdata && cp /usr/share/zoneinfo/$TZ /etc/localtime && \
-    apk add --no-cache tini dovecot dovecot-pop3d bash && \
-    rm -rf /usr/local/share/doc /usr/local/share/man && \
-    rm -rf /etc/dovecot/* && \
-    mkdir -p /var/log/dovecot /var/lib/dovecot && \ 
-    chmod 777 /var/log/dovecot
-COPY dovecot.conf users dovecot-ssl.cnf /etc/dovecot/
-RUN openssl req -new -x509 -nodes -days 3650 -config /etc/dovecot/dovecot-ssl.cnf -out /etc/dovecot/server.pem -keyout /etc/dovecot/server.key && \
-    chmod 0600 /etc/dovecot/server.key && openssl dhparam -dsaparam -out /etc/dovecot/dh.pem 2048
+RUN apt update && apt install -y --no-install-recommends vim curl gpg gpg-agent apt-transport-https ca-certificates ssl-cert && \
+    curl https://repo.dovecot.org/DOVECOT-REPO-GPG | gpg --import && \
+    gpg --export ED409DA1 > /etc/apt/trusted.gpg.d/dovecot.gpg && \
+    echo "deb https://repo.dovecot.org/ce-2.3-latest/ubuntu/bionic bionic main" > /etc/apt/sources.list.d/dovecot.list && \
+    apt update && \
+    apt install -y --no-install-recommends dovecot-core dovecot-imapd dovecot-lmtpd \
+            dovecot-mysql dovecot-pop3d dovecot-sieve dovecot-sqlite dovecot-submissiond && \
+    groupadd -g 5000 vmail && useradd -u 5000 -g 5000 vmail -d /srv/vmail && passwd -l vmail && \
+    rm -rf /etc/dovecot && mkdir /srv/mail && chown vmail:vmail /srv/mail && \
+    make-ssl-cert generate-default-snakeoil && \
+    mkdir /etc/dovecot && ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/dovecot/fullchain.pem && \
+    ln -s /etc/ssl/private/ssl-cert-snakeoil.key /etc/dovecot/privkey.pem && \
+    rm -rf /var/lib/apt/lists/*
 
+COPY dovecot.conf dovecot-ssl.cnf /etc/dovecot/
 COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh /usr/local/sbin/*
+
+RUN mkdir -p /data/files 
+COPY users /data/files/pwd
 
 EXPOSE 110 143 993 995
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=5 CMD doveadm service status 1>/dev/null && echo 'At your service, sir' || exit 1
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["tini", "--", "dovecot","-F"]
+CMD ["/tini", "--", "dovecot","-F"]
