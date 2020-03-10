@@ -14,7 +14,7 @@ Logs are written inside the container, in /var/log/dovecot/dovecot.log, and on s
 `CTRL c` to stop seeing logs.  
 
 If you want to map logs outside the container you can add:  
-`-v /folder/path/on-host/logs/:/var/log/dovecot/`  
+`-v /folder/path/on-host/logs/:/data/logs/`  
 Where "/folder/path/on-host/logs/" is a folder inside your host. You have to create the host folder manually.  
 
 You can run it on a compose file like this:  
@@ -38,7 +38,7 @@ Save on a file and then run:
 If you want to map logs outside the container you can add:  
 ```
     volumes:
-      - /folder/path/on-host/logs/:/var/log/dovecot/
+      - /folder/path/on-host/logs/:/data/logs/
 ```
 Where "/folder/path/on-host/logs/" is a folder inside your host. You have to create the host folder manually.
 
