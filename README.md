@@ -9,7 +9,7 @@ Dockerized version of Dovecot as honeypot service, based on Ubuntu
 You can run this container with this command:  
 `docker run -d --name dovecot-honey -p 110:110 -p 143:143 -p 993:993 -p 995:995 neomediatech/dovecot-honey`  
 
-Logs are written inside the container, in /var/log/dovecot/dovecot.log, and on stdout. You can see realtime logs running this command:  
+Logs are written inside the container, in /data/logs/dovecot.log, and on stdout. You can see realtime logs running this command:  
 `docker logs -f dovecot-honey`  
 `CTRL c` to stop seeing logs.  
 
