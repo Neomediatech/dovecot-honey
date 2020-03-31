@@ -1,6 +1,6 @@
 FROM neomediatech/ubuntu-base:latest
 
-ENV VERSION=2.3.9.2-1+ubuntu18.04 \
+ENV VERSION=2.3.10-2+ubuntu18.04 \
     SERVICE=dovecot-honey 
 
 LABEL maintainer="docker-dario@neomediatech.it" \
