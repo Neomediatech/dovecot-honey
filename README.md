@@ -17,6 +17,9 @@ If you want to map logs outside the container you can add:
 `-v /folder/path/on-host/logs/:/data/logs/`  
 Where "/folder/path/on-host/logs/" is a folder inside your host. You have to create the host folder manually.  
 
+if you set **STDOUT_LOGGING** = true (Docker ENV var) logs will be written only to stdout:  
+`docker run ...bla bla... -e STDOUT_LOGGING=true ..bla bla..`
+
 You can run it on a compose file like this:  
 
 ```
