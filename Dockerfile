@@ -1,6 +1,6 @@
-FROM neomediatech/ubuntu-base:latest
+FROM neomediatech/ubuntu-base:20.04
 
-ENV VERSION=2.3.10-2+ubuntu18.04 \
+ENV VERSION=2.3.16-2+ubuntu20.04 \
     SERVICE=dovecot-honey 
 
 LABEL maintainer="docker-dario@neomediatech.it" \
@@ -12,7 +12,7 @@ LABEL maintainer="docker-dario@neomediatech.it" \
 RUN apt update && apt install -y --no-install-recommends vim curl gpg gpg-agent apt-transport-https ca-certificates ssl-cert && \
     curl https://repo.dovecot.org/DOVECOT-REPO-GPG | gpg --import && \
     gpg --export ED409DA1 > /etc/apt/trusted.gpg.d/dovecot.gpg && \
-    echo "deb https://repo.dovecot.org/ce-2.3-latest/ubuntu/bionic bionic main" > /etc/apt/sources.list.d/dovecot.list && \
+    echo "deb https://repo.dovecot.org/ce-2.3-latest/ubuntu/focal focal main" > /etc/apt/sources.list.d/dovecot.list && \
     apt update && \
     apt install -y --no-install-recommends dovecot-core dovecot-imapd dovecot-lmtpd \
             dovecot-mysql dovecot-pop3d dovecot-sieve dovecot-sqlite dovecot-submissiond && \
