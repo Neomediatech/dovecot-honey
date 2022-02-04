@@ -1,5 +1,3 @@
-[![](https://images.microbadger.com/badges/version/neomediatech/dovecot-honey.svg)](https://microbadger.com/images/neomediatech/dovecot-honey)
-[![](https://images.microbadger.com/badges/image/neomediatech/dovecot-honey.svg)](https://microbadger.com/images/neomediatech/dovecot-honey)
 ![](https://img.shields.io/github/last-commit/Neomediatech/dovecot-honey.svg?style=plastic)
 ![](https://img.shields.io/github/repo-size/Neomediatech/dovecot-honey.svg?style=plastic)
 
