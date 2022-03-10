@@ -29,8 +29,8 @@ chown 5000:5000 $HOMEDIRS
 chmod 775 $HOMEDIRS
 
 if [ ! -f /etc/dovecot/fullchain.pem ]; then
-  cp /etc/ssl/dovecot/server.pem /etc/dovecot/fullchain.pem
-  cp /etc/ssl/dovecot/server.key /etc/dovecot/privkey.pem 
+  [ -f /etc/ssl/dovecot/server.pem ] && cp /etc/ssl/dovecot/server.pem /etc/dovecot/fullchain.pem
+  [ -f /etc/ssl/dovecot/server.key ] && cp /etc/ssl/dovecot/server.key /etc/dovecot/privkey.pem 
 fi
 
 if [ -f /servername_cert ]; then
