@@ -7,6 +7,8 @@ DEBUG="${DEBUG:-}"
 
 STDOUT_LOGGING="${STDOUT_LOGGING:-false}"
 
+[ -f /data/conf/dovecot.conf ] && cat /data/conf/dovecot.conf > /etc/dovecot/dovecot.conf || ok=1
+
 if [ "$STDOUT_LOGGING" == "true" ]; then
   sed -i '/^\(#\)\?log_path.*/d' /etc/dovecot/dovecot.conf
   sed -i '/^\(#\)\?info_log_path.*/d' /etc/dovecot/dovecot.conf

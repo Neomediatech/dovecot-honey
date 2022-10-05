@@ -1,20 +1,21 @@
 FROM neomediatech/ubuntu-base:20.04
 
-ENV VERSION=2.3.16-2+ubuntu20.04 \
+ENV DOVECOT_VERSION=2.3.19 \
     SERVICE=dovecot-honey 
 
 LABEL maintainer="docker-dario@neomediatech.it" \
-      org.label-schema.version=$VERSION \
+      org.label-schema.version=$DOVECOT_VERSION \
       org.label-schema.vcs-type=Git \
       org.label-schema.vcs-url=https://github.com/Neomediatech/$SERVICE \
       org.label-schema.maintainer=Neomediatech
 
-RUN apt update && apt install -y --no-install-recommends vim curl gpg gpg-agent apt-transport-https ca-certificates ssl-cert && \
+RUN apt-get update && apt-get -y dist-upgrade && \
+    apt-get install -y --no-install-recommends vim curl gpg gpg-agent apt-transport-https ca-certificates ssl-cert && \
     curl https://repo.dovecot.org/DOVECOT-REPO-GPG | gpg --import && \
     gpg --export ED409DA1 > /etc/apt/trusted.gpg.d/dovecot.gpg && \
     echo "deb https://repo.dovecot.org/ce-2.3-latest/ubuntu/focal focal main" > /etc/apt/sources.list.d/dovecot.list && \
-    apt update && \
-    apt install -y --no-install-recommends dovecot-core dovecot-imapd dovecot-lmtpd \
+    apt-get update && \
+    apt-get install -y --no-install-recommends dovecot-core dovecot-imapd dovecot-lmtpd \
             dovecot-mysql dovecot-pop3d dovecot-sieve dovecot-sqlite dovecot-submissiond && \
     groupadd -g 5000 vmail && useradd -u 5000 -g 5000 vmail -d /srv/vmail && passwd -l vmail && \
     rm -rf /etc/dovecot && mkdir /srv/mail && chown vmail:vmail /srv/mail && \

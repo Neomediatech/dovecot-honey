@@ -45,3 +45,10 @@ Where "/folder/path/on-host/logs/" is a folder inside your host. You have to cre
 
 Save on a file and then run:  
 `docker stack deploy -c /your-docker-compose-file-just-created.yml dovecot-honey`  
+
+## Custom config
+Custom config can be put in a file named `dovecot.conf` and then bind mounted in the container as path `/data/conf/dovecot.conf`  
+
+Example:
+`docker run ...bla bla... -p /your/directory:/data/conf ..bla bla..`
+Put your dovecot.conf file in /your/directory
