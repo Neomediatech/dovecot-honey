@@ -1,0 +1,34 @@
+name: Check Docker images updates on cron
+
+on:
+  #schedule:
+    # Esegui ogni giorno alle 04:00 UTC per controllare gli aggiornamenti.
+    #- cron: '0 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+  actions: write
+
+jobs:
+  build-image:
+    uses: Neomediatech/gh-workflows/.github/workflows/build-docker-image-bulk.yml@main
+    with:
+      base-image: ghcr.io/neomediatech/ubuntu-base:24.04
+      package-name: neomediatech/dovecot-honey
+      derived-image-prefix: ghcr.io/neomediatech/dovecot-honey
+      force-build: "false"
+      update-image: "true"
+      image-type: "dovecot"
+      package-to-check: "dovecot-core"
+      skip-type-from-base-image: "true"
+    secrets:
+      NOTIFY_CMD: ${{ secrets.NOTIFY_CMD }}
+      NOTIFY_UP: ${{ secrets.NOTIFY_UP }}
+      NOTIFY_ENDPOINT: ${{ secrets.NOTIFY_ENDPOINT }}
+      NOTIFY_OPTIONS: ${{ secrets.NOTIFY_OPTIONS }}
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+      API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
