@@ -50,5 +50,7 @@ Save on a file and then run:
 Custom config can be put in a file named `dovecot.conf` and then bind mounted in the container as path `/data/conf/dovecot.conf`  
 
 Example:
-`docker run ...bla bla... -p /your/directory:/data/conf ..bla bla..`
+```
+docker run ...bla bla... -p /your/directory:/data/conf ..bla bla..
+```
 Put your dovecot.conf file in /your/directory
